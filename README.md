@@ -14,3 +14,15 @@ The general flow<br>
 * Stores the results in the *podcast* directory. The directory structure is defined below.
 
 # Podcast directory
+
+* 2020-12-19
+* 2020-12-20
+* 2020-12-21
+* 2020-12-22
+* 2020-12-23
+
+* histlog.log
+* http-downloads.bbc.co.uk-podcasts-radio3-r3arts-rss.xml
+* http-downloads.bbc.co.uk-podcasts-radio4-aitm-rss.xml
+* podcastfailed.log
+* podcast.log
