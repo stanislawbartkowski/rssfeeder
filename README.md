@@ -40,7 +40,11 @@ Parameter description
 | Parameter | Description | Example |
 | -------- | ------------ | -------- |
 | podcast directory | Directory where podcasts are stored in daily basis | /mnt/usb/podcast
-| list of rss urls | File containing list of rss url. Every line contains a single RSS site | bp.com
+| list of rss urls | File containing list of rss url. Every line contains a single RSS site | bp.conf
+
+# Template
+
+
 
 
 
