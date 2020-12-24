@@ -29,7 +29,7 @@ The general flow<br>
 
 # Usage description
 
-The solution consists of one bash script file and number of templates file to utilize.
+The solution consists of one bash script file and number of template files to utilize.
 
 *./rssfeeder.sh /podcast directory/ /list of rss urls/*
 
