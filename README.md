@@ -15,14 +15,14 @@ The general flow<br>
 
 # Podcast directory
 
-* 2020-12-19
-* 2020-12-20
-* 2020-12-21
-* 2020-12-22
-* 2020-12-23
+* **2020-12-19**  : Daily directories
+* **2020-12-20**
+* **2020-12-21**
+* **2020-12-22**
+* **2020-12-23**
 
-* histlog.log
-* http-downloads.bbc.co.uk-podcasts-radio3-r3arts-rss.xml
-* http-downloads.bbc.co.uk-podcasts-radio4-aitm-rss.xml
-* podcastfailed.log
-* podcast.log
+* **histlog.log**  Log file
+* **http-downloads.bbc.co.uk-podcasts-radio3-r3arts-rss.xml**  Log file regarding a single podcast RSS
+* **http-downloads.bbc.co.uk-podcasts-radio4-aitm-rss.xml**
+* **podcastfailed.log** List of failed podcast, for instance, the podcast is listed in RSS but URL points to non-existing file
+* **podcast.log** List of all podcasts already downloded. *rssfeeder* uses this file to ignore podcasts
