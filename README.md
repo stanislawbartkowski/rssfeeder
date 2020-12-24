@@ -27,3 +27,20 @@ The general flow<br>
 * **podcastfailed.log** : List of failed podcast, for instance, the podcast is listed in RSS but URL points to non-existing file
 * **podcast.log** : List of all podcasts already downloded. *rssfeeder* uses this file to ignore podcasts
 
+# Usage description
+
+The solution consists of one bash script file and number of templates file to utilize.
+
+*./rssfeeder.sh /podcast directory/ /list of rss urls/*
+
+Example: *./rssfeeder.sh /mnt/usb/podcast bp.conf*
+
+Parameter description
+
+| Parameter | Description | Example |
+| -------- | ------------ | -------- |
+| podcast directory | Directory where podcasts are stored in daily basis | /mnt/usb/podcast
+| list of rss urls | File containing list of rss url. Every line contains a single RSS site | bp.com
+
+
+
