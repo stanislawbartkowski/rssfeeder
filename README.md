@@ -21,8 +21,9 @@ The general flow<br>
 * **2020-12-22**
 * **2020-12-23**
 
-* **histlog.log**  Log file
-* **http-downloads.bbc.co.uk-podcasts-radio3-r3arts-rss.xml**  Log file regarding a single podcast RSS
+* **histlog.log**  : Log file
+* **http-downloads.bbc.co.uk-podcasts-radio3-r3arts-rss.xml** : Log file regarding a single podcast RSS
 * **http-downloads.bbc.co.uk-podcasts-radio4-aitm-rss.xml**
-* **podcastfailed.log** List of failed podcast, for instance, the podcast is listed in RSS but URL points to non-existing file
-* **podcast.log** List of all podcasts already downloded. *rssfeeder* uses this file to ignore podcasts
+* **podcastfailed.log** : List of failed podcast, for instance, the podcast is listed in RSS but URL points to non-existing file
+* **podcast.log** : List of all podcasts already downloded. *rssfeeder* uses this file to ignore podcasts
+
