@@ -44,7 +44,13 @@ Parameter description
 
 # Template
 
+https://github.com/stanislawbartkowski/rssfeeder/tree/main/template
 
-
+| File | Description |
+| --- | --- |
+| bp.conf | Example file with list of RSS sites
+| cronjob.sh | Example of cron job launching rssfeeder
+| crontab | Example of crontab
+| testdown.sh | Test bash script file executing rssfeeder.sh
 
 
