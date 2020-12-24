@@ -4,17 +4,29 @@ dirdate() {
     echo $(date +%Y-%m-%d)
 }
 
-log() {
+rsslogname() {   
+   local -r urlname=$1 
+   local -r tname=${urlname////-}
+   echo $PODCASTDIR/${tname/:-/}
+}
+
+logglobal() {
     local -r mess="$1"
     echo "$mess"
     echo "$DIRDAILY : $mess" >>$PODCASTDAILYHIST
     echo "$DIRDAILY : $mess" >>$PODCASTHIST
 }
 
+log() {
+    logglobal "$1"
+    [ -n "$PODCASTRSSHIST" ] && echo "$DIRDAILY : $1" >>$PODCASTRSSHIST
+}
+
 logfile() {
     local -r file=$1
     cat $file >>$PODCASTDAILYHIST
     cat $file >>$PODCASTHIST
+    cat $file >>$PODCASTRSSHIST
 }
 
 logfatal() {
@@ -35,6 +47,9 @@ setvariables() {
     PODCASTDAILYLOG=$PODCASTDIRDAILY/podcast.log
     PODCASTDAILYFAILEDLOG=$PODCASTDIRDAILY/podcastfailed.log
     PODCASTDAILYHIST=$PODCASTDIRDAILY/histlog.log
+
+#    PODCASTRSSHIST=$PODCASTDIR/
+
 
     mkdir -p $PODCASTDIRDAILY
     touch $PODCASTLOG
@@ -125,6 +140,8 @@ downloadrss() {
     local -r rssurl=$1
     local -r tmprss=`mktemp`
     local -r etmp=`mktemp`
+
+    PODCASTRSSHIST=`rsslogname $rssurl`
     log $rssurl
     wget $rssurl -O $tmprss >$etmp 2>&1
     local RES=$?
