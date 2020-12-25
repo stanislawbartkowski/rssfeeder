@@ -13,13 +13,18 @@ rsslogname() {
 logglobal() {
     local -r mess="$1"
     echo "$mess"
-    echo "$DIRDAILY : $mess" >>$PODCASTDAILYHIST
-    echo "$DIRDAILY : $mess" >>$PODCASTHIST
+    echo "`date` : $mess" >>$PODCASTDAILYHIST
+    echo "`date` : $mess" >>$PODCASTHIST
 }
 
 log() {
     logglobal "$1"
     [ -n "$PODCASTRSSHIST" ] && echo "$DIRDAILY : $1" >>$PODCASTRSSHIST
+}
+
+logpodcastdaily() {
+    local -r mess="$1"
+    echo "$mess" >>$PODCASTDAILYSUMMARY  
 }
 
 logfile() {
@@ -47,6 +52,7 @@ setvariables() {
     PODCASTDAILYLOG=$PODCASTDIRDAILY/podcast.log
     PODCASTDAILYFAILEDLOG=$PODCASTDIRDAILY/podcastfailed.log
     PODCASTDAILYHIST=$PODCASTDIRDAILY/histlog.log
+    PODCASTDAILYSUMMARY=$PODCASTDIRDAILY/summary.log
 
 #    PODCASTRSSHIST=$PODCASTDIR/
 
@@ -98,8 +104,9 @@ browseitems() {
         
         log "Download $line"
 
-        wget -P $PODCASTDIRDAILY $line >$etemp 2>&1          
-        RES=$?
+#        wget -P $PODCASTDIRDAILY $line >$etemp 2>&1                  
+#        RES=$?
+        RES=0
 
         if [ $RES -ne 0 ]; then
           let "FAILED+=1"
@@ -130,8 +137,10 @@ browseitems() {
 
     done < <(sed 's/url="//g' <$temp| sed 's/"/\n/g' )
 
-    log "Downloaded $DOWNLOADED ignored $IGNORED failed $FAILED ignored failed $IGNOREDFAILED"
-
+    local -r summarymess="Summary: downloaded: $DOWNLOADED , ignored: $IGNORED , failed: $FAILED , ignored failed: $IGNOREDFAILED"
+    log "$summarymess"
+    logpodcastdaily "$summarymess"
+    logpodcastdaily ""
 
     rm -f $temp $etemp
 }
@@ -143,6 +152,7 @@ downloadrss() {
 
     PODCASTRSSHIST=`rsslogname $rssurl`
     log $rssurl
+    logpodcastdaily "`date`  $rssurl"
     wget $rssurl -O $tmprss >$etmp 2>&1
     local RES=$?
     if [ $RES -ne 0 ]; then
@@ -157,6 +167,7 @@ downloadrss() {
 loadpodcasts() {
     local -r bpfile=$1
     log $bpfile
+    logpodcastdaily "========================================"
     while IFS= read -r rssurl 
     do
         local line=`echo $rssurl | xargs`
