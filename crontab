@@ -1,2 +1,0 @@
-0 12,22 * * * /home/podcast/rssfeeder/cronjob.sh /mnt/usb/podcast
-0 11,23 * * * /home/podcast/rssfeeder/cronjob.sh /mnt/usb1/podcast
