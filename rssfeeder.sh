@@ -64,10 +64,11 @@ setvariables() {
 
 browseitems() {
     local -r rssfile=$1
+    local -r name="$2"
     local -r temp=`mktemp`
     local -r etemp=`mktemp`
 
-    echo "Analize $rssfile"
+    echo "Analize $name : $rssfile"
     xmllint $rssfile --xpath '/rss/channel/item/enclosure/@url' >$temp 2>$etemp
 
     RES=$?
@@ -104,9 +105,9 @@ browseitems() {
         
         log "Download $line"
 
-#        wget -P $PODCASTDIRDAILY $line >$etemp 2>&1                  
-#        RES=$?
-        RES=0
+        wget -P $PODCASTDIRDAILY $line >$etemp 2>&1                  
+        RES=$?
+#        RES=0
 
         if [ $RES -ne 0 ]; then
           let "FAILED+=1"
@@ -147,12 +148,14 @@ browseitems() {
 
 downloadrss() {
     local -r rssurl=$1
+    local -r name="$2"
     local -r tmprss=`mktemp`
     local -r etmp=`mktemp`
 
     PODCASTRSSHIST=`rsslogname $rssurl`
+    log "$name"
     log $rssurl
-    logpodcastdaily "`date`  $rssurl"
+    logpodcastdaily "`date`  $name : $rssurl"
     wget $rssurl -O $tmprss >$etmp 2>&1
     local RES=$?
     if [ $RES -ne 0 ]; then
@@ -160,7 +163,7 @@ downloadrss() {
        rm -f $tmprss $etmp
        logfatal "Cannot open RSS"
     fi
-    browseitems $tmprss
+    browseitems $tmprss "$name"
     rm -f $tmprss $etmp
 }
 
@@ -168,11 +171,11 @@ loadpodcasts() {
     local -r bpfile=$1
     log $bpfile
     logpodcastdaily "========================================"
-    while IFS= read -r rssurl 
+    while IFS=@ read -r name rssurl 
     do
         local line=`echo $rssurl | xargs`
         [ -z "$line" ] && continue
-        downloadrss $line
+        downloadrss $line "$name"
     done <$bpfile
 }
 
@@ -181,7 +184,8 @@ test() {
 #   browseitems podcast.xml
 #  browseitems podcast.xml.1
 #  downloadrss https://www.theguardian.com/news/series/todayinfocus/podcast.xml  
-   loadpodcasts bp.conf
+   setvariables /tmp/podcast
+   loadpodcasts template/bptest.conf
 }
 
 printhelp() {
@@ -211,4 +215,5 @@ run() {
   esac    
 }
 
-run $@
+#run $@
+test
