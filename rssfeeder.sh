@@ -215,5 +215,5 @@ run() {
   esac    
 }
 
-#run $@
-test
+run $@
+#test
